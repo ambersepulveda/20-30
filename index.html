@@ -8,1060 +8,585 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        paper: '#F1EFE3',
+                        'paper-2': '#E7E2D0',
+                        card: '#FBFAF4',
+                        ink: '#16211C',
+                        'ink-soft': '#4A5650',
+                        teal: '#0E4038',
+                        'teal-deep': '#082B25',
+                        'teal-line': '#C7D6CF',
+                        gold: '#D9A441',
+                        'gold-deep': '#9A6E1F',
+                        coral: '#C1443C',
+                    },
+                    fontFamily: {
+                        serif: ['Fraunces', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --paper: #F1EFE3;
-            --paper-2: #E7E2D0;
-            --card: #FBFAF4;
-            --ink: #16211C;
-            --ink-soft: #4A5650;
-            --teal: #0E4038;
-            --teal-deep: #082B25;
-            --teal-line: #C7D6CF;
-            --gold: #D9A441;
-            --gold-deep: #9A6E1F;
-            --coral: #C1443C;
-            --radius: 14px;
-            --maxw: 1180px;
-            font-size: 16px;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body {
-            background: var(--paper);
-            color: var(--ink);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.55;
-            -webkit-font-smoothing: antialiased;
-        }
-        img { max-width: 100%; display: block; }
-        a { color: inherit; text-decoration: none; }
-        h1, h2, h3, h4 {
-            font-family: 'Fraunces', serif;
-            font-weight: 600;
-            line-height: 1.08;
-            letter-spacing: -0.01em;
-        }
-        .eyebrow {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.72rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--teal);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .eyebrow::before {
-            content: "";
-            width: 22px;
-            height: 1px;
-            background: var(--gold-deep);
-        }
-        .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
-        :focus-visible { outline: 3px solid var(--gold-deep); outline-offset: 3px; }
-        @media (prefers-reduced-motion: reduce) {
-            * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
-        }
-
-        /* Reveal */
-        .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
-        .reveal.in { opacity: 1; transform: translateY(0); }
-
-        /* Header mejorado */
-        header {
-            position: sticky; top: 0; z-index: 100;
-            background: rgba(241,239,227,0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--paper-2);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-        .nav {
-            max-width: var(--maxw);
-            margin: 0 auto;
-            padding: 18px 32px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            min-height: 80px;
-        }
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            color: var(--ink);
-            flex-shrink: 0;
-            transition: transform 0.2s ease;
-        }
-        .brand:hover { transform: translateY(-1px); }
-        .brand-logo {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--teal);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(14,64,56,0.25);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            border: 3px solid var(--gold);
-        }
-        .brand:hover .brand-logo {
-            transform: scale(1.05);
-            box-shadow: 0 6px 16px rgba(14,64,56,0.35);
-        }
-        .brand-logo img { width: 100%; height: 100%; object-fit: cover; }
-        .brand-text {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.2;
-            gap: 2px;
-        }
-        .brand-text strong {
-            font-family: 'Fraunces', serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--teal-deep);
-            letter-spacing: -0.01em;
-            line-height: 1.1;
-        }
-        .brand-text span {
-            font-size: 0.75rem;
-            color: var(--ink-soft);
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            font-family: 'Space Mono', monospace;
-            font-weight: 700;
-        }
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            list-style: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            margin-left: auto;
-        }
-        .nav-links a {
-            position: relative;
-            padding: 10px 18px;
-            border-radius: 6px;
-            transition: background 0.2s ease, color 0.2s ease;
-            color: var(--ink-soft);
-            white-space: nowrap;
-        }
-        .nav-links a:hover {
-            background: rgba(14,64,56,0.08);
-            color: var(--teal);
-        }
-        .nav-links a::after {
-            content: "";
-            position: absolute;
-            left: 18px;
-            bottom: 6px;
-            width: 0;
-            height: 2px;
-            background: var(--gold-deep);
-            transition: width 0.25s ease;
-            border-radius: 2px;
-        }
-        .nav-links a:hover::after {
-            width: calc(100% - 36px);
-        }
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-shrink: 0;
-        }
-        .cta-btn {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.72rem;
-            letter-spacing: 0.04em;
-            background: var(--teal);
-            color: #F3EFE1;
-            padding: 12px 24px;
-            border-radius: 100px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            white-space: nowrap;
-            transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-            font-weight: 700;
-            box-shadow: 0 2px 8px rgba(14,64,56,0.2);
-        }
-        .cta-btn:hover {
-            background: var(--teal-deep);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(14,64,56,0.3);
-        }
-        .cta-btn.ghost {
-            background: transparent;
-            color: var(--teal);
-            border: 1.5px solid var(--teal);
-            box-shadow: none;
-        }
-        .cta-btn.ghost:hover {
-            background: var(--teal);
-            color: #F3EFE1;
-            box-shadow: 0 2px 8px rgba(14,64,56,0.2);
-        }
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 6px;
-            transition: background 0.2s ease;
-        }
-        .menu-toggle:hover { background: rgba(14,64,56,0.08); }
-        .menu-toggle span {
-            display: block;
-            width: 24px;
-            height: 2.5px;
-            background: var(--ink);
-            margin: 5px 0;
-            border-radius: 2px;
-            transition: all 0.3s ease;
-        }
-
-        /* Hero */
-        .hero { padding: 88px 0 70px; position: relative; overflow: hidden; }
-        .hero::before, .hero::after {
-            content: "";
-            position: absolute;
-            width: 520px;
-            height: 520px;
-            border-radius: 50%;
-            border: 1px solid var(--teal-line);
-            opacity: 0.5;
-        }
-        .hero::before { top: -140px; right: -160px; }
-        .hero::after { top: -60px; right: -40px; }
-        .hero-grid {
-            position: relative;
-            z-index: 1;
-            display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 56px;
-            align-items: center;
-        }
-        .hero h1 {
-            font-size: clamp(2.4rem, 4.6vw, 3.85rem);
-            color: var(--teal-deep);
-            max-width: 14ch;
-        }
-        .hero h1 em { font-style: italic; color: var(--gold-deep); }
-        .hero-sub {
-            margin-top: 22px;
-            max-width: 46ch;
-            font-size: 1.08rem;
-            color: var(--ink-soft);
-        }
-        .hero-actions {
-            margin-top: 32px;
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-        }
-        .hero-image-wrapper {
-            border-radius: var(--radius);
-            overflow: hidden;
-            border: 1px solid var(--paper-2);
-            box-shadow: 0 24px 40px -20px rgba(14,64,56,0.3);
-            margin-bottom: 24px;
-            position: relative;
-        }
-        .hero-image-wrapper img {
-            width: 100%;
-            height: 320px;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        .hero-image-wrapper:hover img { transform: scale(1.03); }
-        .hero-stats {
-            display: flex;
-            flex-direction: column;
-            border-top: 1px solid var(--teal-line);
-        }
-        .hero-stat {
-            padding: 16px 0;
-            border-bottom: 1px solid var(--teal-line);
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            gap: 12px;
-        }
-        .hero-stat .n {
-            font-family: 'Fraunces', serif;
-            font-size: 1.9rem;
-            color: var(--teal);
-            font-weight: 600;
-        }
-        .hero-stat .l {
-            font-size: 0.82rem;
-            color: var(--ink-soft);
-            text-align: right;
-            max-width: 20ch;
-        }
-
-        /* Sections */
-        section { padding: 84px 0; }
-        .section-head { max-width: 640px; margin-bottom: 48px; }
-        .section-head h2 {
-            font-size: clamp(1.9rem, 3vw, 2.6rem);
-            margin-top: 14px;
-            color: var(--teal-deep);
-        }
-        .section-head p {
-            margin-top: 14px;
-            color: var(--ink-soft);
-            font-size: 1.02rem;
-        }
-
-        /* Origin */
-        .origin {
-            background: var(--teal);
-            color: #F3EFE1;
-            border-radius: 20px;
-            padding: 60px;
-            display: grid;
-            grid-template-columns: 0.9fr 1.1fr;
-            gap: 48px;
-            align-items: center;
-        }
-        .origin blockquote {
-            font-family: 'Fraunces', serif;
-            font-style: italic;
-            font-weight: 500;
-            font-size: clamp(1.6rem, 2.6vw, 2.3rem);
-            line-height: 1.25;
-            color: #F6E9C9;
-        }
-        .origin blockquote::before { content: "“"; }
-        .origin blockquote::after { content: "”"; }
-        .origin cite {
-            display: block;
-            margin-top: 18px;
-            font-style: normal;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.72rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: #B9CDC5;
-        }
-        .origin-body p {
-            color: #D9E4DE;
-            font-size: 0.98rem;
-            margin: 0 0 14px;
-        }
-        .origin-image {
-            border-radius: var(--radius);
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.2);
-            margin-top: 20px;
-            height: 200px;
-        }
-        .origin-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        .origin-image:hover img { transform: scale(1.03); }
-
-        /* Timeline */
-        .timeline-wrap { position: relative; }
-        .timeline {
-            display: flex;
-            gap: 0;
-            overflow-x: auto;
-            padding: 8px 4px 28px;
-            scroll-snap-type: x proximity;
-            scrollbar-width: thin;
-            scrollbar-color: var(--gold-deep) transparent;
-        }
-        .timeline::-webkit-scrollbar { height: 6px; }
-        .timeline::-webkit-scrollbar-thumb { background: var(--teal-line); border-radius: 10px; }
-        .tl-item {
-            scroll-snap-align: start;
-            flex: 0 0 280px;
-            padding: 0 28px 0 0;
-            position: relative;
-        }
-        .tl-item::before {
-            content: "";
-            position: absolute;
-            top: 38px;
-            left: 0;
-            right: 28px;
-            height: 1px;
-            background: var(--teal-line);
-        }
-        .tl-item:last-child::before { display: none; }
-        .tl-dot {
-            width: 11px;
-            height: 11px;
-            border-radius: 50%;
-            background: var(--paper);
-            border: 2px solid var(--gold-deep);
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-        }
-        .tl-year {
-            font-family: 'Space Mono', monospace;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--teal);
-        }
-        .tl-title {
-            font-family: 'Fraunces', serif;
-            font-weight: 600;
-            font-size: 1.08rem;
-            margin-top: 8px;
-            color: var(--teal-deep);
-        }
-        .tl-text {
-            font-size: 0.9rem;
-            color: var(--ink-soft);
-            margin-top: 8px;
-            padding-right: 8px;
-        }
-
-        /* Especialidades */
-        .spec-groups {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 36px 48px;
-        }
-        .spec-group {
-            border-top: 2px solid var(--teal);
-            padding-top: 18px;
-        }
-        .spec-group h3 { font-size: 1.15rem; color: var(--teal-deep); }
-        .spec-group .count {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.72rem;
-            color: var(--gold-deep);
-            margin-top: 4px;
-            display: block;
-        }
-        .chip-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 9px;
-            margin-top: 16px;
-        }
-        .chip {
-            background: var(--card);
-            border: 1px solid var(--paper-2);
-            border-radius: 100px;
-            padding: 8px 15px;
-            font-size: 0.85rem;
-            color: var(--ink);
-            transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
-            cursor: default;
-        }
-        .chip:hover {
-            border-color: var(--gold-deep);
-            background: #FFFDF6;
-            transform: translateY(-1px);
-        }
-
-        /* Programas */
-        .prog-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 22px;
-        }
-        .prog-card {
-            background: var(--card);
-            border-radius: var(--radius);
-            padding: 30px 26px;
-            border: 1px solid var(--paper-2);
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-        }
-        .prog-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 16px 30px -18px rgba(14,64,56,0.35);
-        }
-        .prog-num {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.75rem;
-            color: var(--gold-deep);
-        }
-        .prog-card h3 { font-size: 1.12rem; color: var(--teal-deep); }
-        .prog-card p { font-size: 0.9rem; color: var(--ink-soft); }
-        .prog-image {
-            border-radius: var(--radius);
-            overflow: hidden;
-            height: 160px;
-            margin-top: 8px;
-        }
-        .prog-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        .prog-card:hover .prog-image img { transform: scale(1.05); }
-
-        /* Legado */
-        .legado {
-            background: var(--paper-2);
-            border-radius: 20px;
-            padding: 56px;
-            display: grid;
-            grid-template-columns: 0.7fr 1.3fr;
-            gap: 52px;
-        }
-        .legado-stats {
-            display: flex;
-            flex-direction: column;
-            gap: 26px;
-        }
-        .legado-stat .n {
-            font-family: 'Fraunces', serif;
-            font-size: 2.6rem;
-            color: var(--teal);
-            font-weight: 700;
-        }
-        .legado-stat .l {
-            font-size: 0.85rem;
-            color: var(--ink-soft);
-            margin-top: 2px;
-        }
-        .town-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 18px;
-        }
-        .town-tag {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.72rem;
-            border: 1px solid var(--ink-soft);
-            border-radius: 6px;
-            padding: 5px 10px;
-            color: var(--ink-soft);
-            transition: all 0.2s ease;
-        }
-        .town-tag:hover {
-            background: var(--teal);
-            color: #F3EFE1;
-            border-color: var(--teal);
-        }
-        .legado-copy h3 {
-            font-size: 1.3rem;
-            color: var(--teal-deep);
-            margin-bottom: 12px;
-        }
-        .legado-copy p {
-            color: var(--ink-soft);
-            font-size: 0.96rem;
-            margin: 0 0 14px;
-        }
-        .legado-image {
-            border-radius: var(--radius);
-            overflow: hidden;
-            margin-top: 20px;
-            height: 200px;
-        }
-        .legado-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        .legado-image:hover img { transform: scale(1.03); }
-
-        /* Contacto */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 48px;
-            align-items: stretch;
-        }
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 26px;
-        }
-        .contact-row {
-            display: flex;
-            gap: 16px;
-            align-items: flex-start;
-        }
-        .contact-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            background: var(--teal);
-            color: #F3EFE1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.85rem;
-        }
-        .contact-row h4 {
-            font-size: 0.95rem;
-            margin-bottom: 4px;
-            color: var(--teal-deep);
-        }
-        .contact-row p, .contact-row a {
-            font-size: 0.92rem;
-            color: var(--ink-soft);
-        }
-        .contact-row a:hover { color: var(--teal); }
-        .map-frame {
-            border-radius: var(--radius);
-            overflow: hidden;
-            border: 1px solid var(--paper-2);
-            min-height: 340px;
-        }
-        .map-frame iframe {
-            width: 100%;
-            height: 100%;
-            min-height: 340px;
-            border: 0;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--teal-deep);
-            color: #CFDBD5;
-            padding: 56px 0 28px;
-        }
-        .footer-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 32px;
-            flex-wrap: wrap;
-            padding-bottom: 32px;
-            border-bottom: 1px solid rgba(255,255,255,0.12);
-        }
-        .footer-brand {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-        .footer-brand strong {
-            font-family: 'Fraunces', serif;
-            color: #F3EFE1;
-            font-size: 1.3rem;
-        }
-        .footer-social {
-            display: flex;
-            gap: 12px;
-        }
-        .footer-social a {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0.25);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #F3EFE1;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.7rem;
-            transition: background 0.2s ease;
-        }
-        .footer-social a:hover { background: rgba(255,255,255,0.12); }
-        .footer-bottom {
-            padding-top: 22px;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 10px;
-            font-size: 0.78rem;
-            color: #8FA69C;
-        }
-
-        /* WhatsApp float */
-        .wa-float {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            z-index: 60;
-            background: var(--coral);
-            color: #fff;
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.7rem;
-            box-shadow: 0 12px 24px -10px rgba(193,68,60,0.6);
-            transition: transform 0.2s ease;
-        }
-        .wa-float:hover { transform: scale(1.07); }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .nav {
-                padding: 14px 20px;
-                min-height: 70px;
-            }
-            .brand-logo {
-                width: 50px;
-                height: 50px;
-            }
-            .brand-text strong {
-                font-size: 1.15rem;
-            }
-            .brand-text span {
-                font-size: 0.7rem;
-            }
-            .nav-links a {
-                padding: 8px 14px;
-                font-size: 0.85rem;
-            }
-        }
-        @media (max-width: 920px) {
-            .hero-grid {
-                grid-template-columns: 1fr;
-                gap: 38px;
-            }
-            .origin {
-                grid-template-columns: 1fr;
-                padding: 40px 28px;
-                gap: 28px;
-            }
-            .spec-groups { grid-template-columns: 1fr; }
-            .prog-grid { grid-template-columns: 1fr 1fr; }
-            .legado {
-                grid-template-columns: 1fr;
-                padding: 36px 28px;
-            }
-            .contact-grid { grid-template-columns: 1fr; }
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                right: 0;
-                background: var(--paper);
-                flex-direction: column;
-                padding: 20px;
-                border-bottom: 1px solid var(--paper-2);
-                box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-                gap: 8px;
-                margin: 0;
-            }
-            .nav-links.open { display: flex; }
-            .nav-links a {
-                padding: 12px 16px;
-                width: 100%;
-                text-align: center;
-                font-size: 0.9rem;
-            }
-            .menu-toggle { display: block; }
-            .nav-actions .cta-btn.ghost { display: none; }
-            .nav-actions .cta-btn {
-                padding: 10px 18px;
-                font-size: 0.7rem;
-            }
-        }
-        @media (max-width: 600px) {
-            .wrap { padding: 0 20px; }
-            .prog-grid { grid-template-columns: 1fr; }
-            section { padding: 60px 0; }
-            .hero { padding: 64px 0 46px; }
-            .brand-logo {
-                width: 45px;
-                height: 45px;
-                border-width: 2px;
-            }
-            .brand-text strong { font-size: 1.05rem; }
-            .brand-text span { font-size: 0.65rem; }
-            .nav-actions .cta-btn {
-                padding: 8px 14px;
-                font-size: 0.65rem;
-            }
-            .footer-brand strong { font-size: 1.1rem; }
+        @keyframes logoPulse {
+            0%, 100% { box-shadow: 0 8px 20px rgba(14,64,56,0.3); }
+            50% { box-shadow: 0 8px 30px rgba(14,64,56,0.5), 0 0 0 6px rgba(217,164,65,0.1); }
+        }
+        @keyframes logoShine {
+            0% { transform: translateX(-100%) rotate(0deg); }
+            50% { transform: translateX(100%) rotate(45deg); }
+            100% { transform: translateX(-100%) rotate(0deg); }
+        }
+        .logo-pulse {
+            animation: logoPulse 3s ease-in-out infinite;
+        }
+        .logo-shine {
+            animation: logoShine 4s ease-in-out infinite;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity .7s ease, transform .7s ease;
+        }
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
-<body>
-
-<header>
-    <div class="nav">
-        <a href="#" class="brand">
-            <span class="brand-logo">
-                <img src="activo_20-30_logo_low.png" alt="Logo Fundación Activo 20-30" />
+<body class="bg-paper text-ink font-sans antialiased">
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-paper/95 backdrop-blur-md border-b border-paper-2 shadow-sm">
+    <nav class="max-w-[1180px] mx-auto px-4 md:px-8 py-4 md:py-5 flex items-center justify-between gap-4 min-h-[80px] md:min-h-[90px]">
+       
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-3 md:gap-4 shrink-0 group hover:-translate-y-0.5 transition-transform duration-300">
+            <span class="relative w-[55px] h-[55px] md:w-[70px] md:h-[70px] rounded-full bg-gradient-to-br from-teal to-teal-deep flex items-center justify-center overflow-hidden border-[3px] border-gold logo-pulse group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 group-hover:shadow-2xl">
+                <span class="absolute top-[-50%] left-[-50%] w-[200%] h-[200%] bg-gradient-to-br from-transparent via-white/10 to-transparent logo-shine"></span>
+                <img src="/photos/activo_20-30_logo_low.png" alt="Logo Fundación Activo 20-30" class="w-full h-full object-cover relative z-10" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                <!-- Fallback SVG si la imagen no carga -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-full h-full relative z-10 hidden" style="display: none;">
+                    <circle cx="50" cy="50" r="48" fill="#0E4038" />
+                    <text x="50" y="52" font-family="'Space Mono', monospace" font-size="16" fill="#D9A441" text-anchor="middle" font-weight="bold">A20-30</text>
+                    <line x1="20" y1="62" x2="80" y2="62" stroke="#D9A441" stroke-width="1.5" />
+                    <text x="50" y="74" font-family="'Space Mono', monospace" font-size="8" fill="#F1EFE3" text-anchor="middle" font-weight="normal">FUNDACIÓN</text>
+                    <circle cx="50" cy="50" r="42" fill="none" stroke="#D9A441" stroke-width="0.5" opacity="0.5" />
+                </svg>
             </span>
-            <span class="brand-text">
-                <strong>Fundación Activo 20-30</strong>
-                <span>Centro de Salud · Sto. Dgo.</span>
+            <span class="flex flex-col leading-tight gap-1">
+                <strong class="font-serif text-xl md:text-2xl lg:text-[1.6rem] font-black text-teal-deep bg-gradient-to-br from-teal-deep to-teal bg-clip-text text-transparent group-hover:from-gold-deep group-hover:to-gold transition-all duration-300">
+                    Fundación Activo 20-30
+                </strong>
+                <span class="text-[0.7rem] md:text-[0.85rem] text-gold-deep uppercase tracking-wider font-mono font-bold group-hover:text-teal transition-colors duration-300">
+                    Centro de Salud · Sto. Dgo.
+                </span>
             </span>
         </a>
-        <ul class="nav-links" id="nav-links">
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#historia">Nosotros</a></li>
-            <li><a href="#especialidades">Especialidades</a></li>
-            <li><a href="#programas">Programas</a></li>
-            <li><a href="#contacto">Contacto</a></li>
+
+        <!-- Desktop Menu -->
+        <ul class="hidden lg:flex items-center gap-1 ml-auto font-medium text-sm md:text-[0.9rem]">
+            <li><a href="#" class="px-3 py-2 rounded-lg text-ink-soft hover:bg-teal/10 hover:text-teal transition-colors relative group">Inicio<span class="absolute left-3 bottom-1 w-0 h-0.5 bg-gold-deep transition-all duration-300 group-hover:w-[calc(100%-24px)] rounded-full"></span></a></li>
+            <li><a href="#historia" class="px-3 py-2 rounded-lg text-ink-soft hover:bg-teal/10 hover:text-teal transition-colors relative group">Nosotros<span class="absolute left-3 bottom-1 w-0 h-0.5 bg-gold-deep transition-all duration-300 group-hover:w-[calc(100%-24px)] rounded-full"></span></a></li>
+            <li><a href="#especialidades" class="px-3 py-2 rounded-lg text-ink-soft hover:bg-teal/10 hover:text-teal transition-colors relative group">Especialidades<span class="absolute left-3 bottom-1 w-0 h-0.5 bg-gold-deep transition-all duration-300 group-hover:w-[calc(100%-24px)] rounded-full"></span></a></li>
+            <li><a href="#programas" class="px-3 py-2 rounded-lg text-ink-soft hover:bg-teal/10 hover:text-teal transition-colors relative group">Programas<span class="absolute left-3 bottom-1 w-0 h-0.5 bg-gold-deep transition-all duration-300 group-hover:w-[calc(100%-24px)] rounded-full"></span></a></li>
+            <li><a href="#contacto" class="px-3 py-2 rounded-lg text-ink-soft hover:bg-teal/10 hover:text-teal transition-colors relative group">Contacto<span class="absolute left-3 bottom-1 w-0 h-0.5 bg-gold-deep transition-all duration-300 group-hover:w-[calc(100%-24px)] rounded-full"></span></a></li>
         </ul>
-        <div class="nav-actions">
-            <a href="#contacto" class="cta-btn ghost">Ver dirección</a>
-            <a href="https://wa.me/18096840082" target="_blank" rel="noopener" class="cta-btn">Agendar cita ↗</a>
+
+        <!-- Actions -->
+        <div class="hidden lg:flex items-center gap-3 shrink-0">
+            <a href="#contacto" class="font-mono text-xs tracking-wider px-5 py-2.5 rounded-full border-2 border-teal text-teal hover:bg-teal hover:text-paper transition-all duration-200 font-bold">Ver dirección</a>
+            <a href="https://wa.me/18096840082" target="_blank" rel="noopener" class="font-mono text-xs tracking-wider px-5 py-2.5 rounded-full bg-teal text-paper hover:bg-teal-deep hover:-translate-y-0.5 transition-all duration-200 font-bold shadow-md flex items-center gap-2">
+                Agendar cita ↗
+            </a>
         </div>
-        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">
-            <span></span><span></span><span></span>
+
+        <!-- Mobile Menu Button -->
+        <button id="menu-toggle" class="lg:hidden p-2 rounded-lg hover:bg-teal/10 transition-colors" aria-label="Abrir menú">
+            <span class="block w-6 h-0.5 bg-ink rounded-full my-1.5"></span>
+            <span class="block w-6 h-0.5 bg-ink rounded-full my-1.5"></span>
+            <span class="block w-6 h-0.5 bg-ink rounded-full my-1.5"></span>
         </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden absolute top-full left-0 right-0 bg-paper border-b border-paper-2 shadow-lg">
+        <ul class="flex flex-col p-4 gap-2">
+            <li><a href="#" class="block px-4 py-3 text-center rounded-lg text-ink-soft hover:bg-teal/10 hover:text-teal transition-colors font-medium">Inicio</a></li>
+            <li><a href="#historia" class="block px-4 py-3 text-center rounded-lg text-ink-soft hover:bg-teal/10 hover:text-teal transition-colors font-medium">Nosotros</a></li>
+            <li><a href="#especialidades" class="block px-4 py-3 text-center rounded-lg text-ink-soft hover:bg-teal/10 hover:text-teal transition-colors font-medium">Especialidades</a></li>
+            <li><a href="#programas" class="block px-4 py-3 text-center rounded-lg text-ink-soft hover:bg-teal/10 hover:text-teal transition-colors font-medium">Programas</a></li>
+            <li><a href="#contacto" class="block px-4 py-3 text-center rounded-lg text-ink-soft hover:bg-teal/10 hover:text-teal transition-colors font-medium">Contacto</a></li>
+            <li class="pt-2"><a href="https://wa.me/18096840082" target="_blank" rel="noopener" class="block px-4 py-3 text-center rounded-full bg-teal text-paper font-mono font-bold text-xs">Agendar cita ↗</a></li>
+        </ul>
     </div>
 </header>
 
-<main>
+    <main>
 
-    <!-- HERO -->
-    <section class="hero">
-        <div class="wrap hero-grid">
-            <div>
-                <p class="eyebrow">Centro de Salud · María Auxiliadora, Santo Domingo</p>
-                <h1>Salud accesible, nacida de un club que nunca dejó de <em>servir</em>.</h1>
-                <p class="hero-sub">Desde 1978 ofrecemos consultas médicas de calidad a precios justos al corazón de María Auxiliadora, como parte de la labor social de Fundación Activo 20-30 — heredera de más de seis décadas de trabajo comunitario en República Dominicana.</p>
-                <div class="hero-actions">
-                    <a href="https://wa.me/18096840082" target="_blank" rel="noopener" class="cta-btn">Escribir por WhatsApp ↗</a>
-                    <a href="#especialidades" class="cta-btn ghost">Ver especialidades</a>
-                </div>
-            </div>
-            <div class="reveal">
-                <div class="hero-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=800&h=500&fit=crop" alt="Centro de salud moderno" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 500%22%3E%3Crect width=%22800%22 height=%22500%22 fill=%22%230E4038%22/%3E%3Ccircle cx=%22400%22 cy=%22200%22 r=%2260%22 fill=%22%23D9A441%22/%3E%3Ctext x=%22400%22 y=%22340%22 font-family=%22monospace%22 font-size=%2228%22 fill=%22%23F1EFE3%22 text-anchor=%22middle%22%3ECENTRO DE SALUD%3C/text%3E%3C/svg%3E'" />
-                </div>
-                <div class="hero-stats">
-                    <div class="hero-stat"><span class="n">1962</span><span class="l">primer club Activo 20-30 juramentado en el país</span></div>
-                    <div class="hero-stat"><span class="n">16</span><span class="l">clubes activos hoy en la Asociación Nacional</span></div>
-                    <div class="hero-stat"><span class="n">24</span><span class="l">escuelas construidas en comunidades de escasos recursos</span></div>
-                    <div class="hero-stat"><span class="n">28+</span><span class="l">especialidades médicas bajo un mismo techo</span></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ORIGEN / NOSOTROS -->
-    <section id="historia">
-        <div class="wrap">
-            <div class="origin reveal">
+        <!-- HERO -->
+        <section class="relative overflow-hidden py-16 md:py-24">
+            <div class="absolute top-[-140px] right-[-160px] w-[520px] h-[520px] rounded-full border border-teal-line opacity-50"></div>
+            <div class="absolute top-[-60px] right-[-40px] w-[520px] h-[520px] rounded-full border border-teal-line opacity-50"></div>
+            
+            <div class="max-w-[1180px] mx-auto px-4 md:px-8 relative z-10 grid md:grid-cols-[1.15fr_0.85fr] gap-10 md:gap-14 items-center">
                 <div>
-                    <blockquote>Señor… deme algo</blockquote>
-                    <cite>Consigna de recaudación, 1963</cite>
-                    <div class="origin-image">
-                        <img src="https://images.unsplash.com/photo-1584515933487-779824d29309?w=600&h=300&fit=crop" alt="Hogar del Niño construido en 1963" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 600 300%22%3E%3Crect width=%22600%22 height=%22300%22 fill=%22%23D9A441%22/%3E%3Ctext x=%22300%22 y=%22160%22 font-family=%22monospace%22 font-size=%2232%22 fill=%22%23082B25%22 text-anchor=%22middle%22%3EHOGAR DEL NIÑO%3C/text%3E%3C/svg%3E'" />
+                    <p class="font-mono text-xs tracking-widest uppercase text-teal flex items-center gap-2.5">
+                        <span class="w-[22px] h-px bg-gold-deep inline-block"></span>
+                        Centro de Salud · María Auxiliadora, Santo Domingo
+                    </p>
+                    <h1 class="mt-4 font-serif text-4xl md:text-6xl font-semibold text-teal-deep leading-tight max-w-[14ch]">
+                        Salud accesible, nacida de un club que nunca dejó de <em class="italic text-gold-deep">servir</em>.
+                    </h1>
+                    <p class="mt-6 max-w-[46ch] text-lg text-ink-soft">
+                        Desde 1978 ofrecemos consultas médicas de calidad a precios justos al corazón de María Auxiliadora, como parte de la labor social de Fundación Activo 20-30 — heredera de más de seis décadas de trabajo comunitario en República Dominicana.
+                    </p>
+                    <div class="mt-8 flex flex-wrap gap-4">
+                        <a href="https://wa.me/18096840082" target="_blank" rel="noopener" class="font-mono text-xs tracking-wider px-6 py-3 rounded-full bg-teal text-paper hover:bg-teal-deep hover:-translate-y-0.5 transition-all duration-200 font-bold shadow-md">
+                            Escribir por WhatsApp ↗
+                        </a>
+                        <a href="#especialidades" class="font-mono text-xs tracking-wider px-6 py-3 rounded-full border-2 border-teal text-teal hover:bg-teal hover:text-paper transition-all duration-200 font-bold">
+                            Ver especialidades
+                        </a>
                     </div>
                 </div>
-                <div class="origin-body">
-                    <p>Con esa frase sencilla, un grupo de jóvenes salió a pedir fondos por las calles de Santo Domingo en 1963, apenas un año después de fundado el primer club en el país. Con lo recaudado construyeron el Hogar del Niño, en la Prolongación Independencia, donde llegaron a residir y educarse cerca de 200 niños.</p>
-                    <p>Ese mismo espíritu — resolver lo que hace falta, con lo que se tenga a mano — es el que sostiene hoy el Centro de Salud.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TIMELINE -->
-    <section>
-        <div class="wrap">
-            <div class="section-head reveal">
-                <p class="eyebrow">Nuestra historia</p>
-                <h2>De dos clubes de jóvenes a una red nacional de servicio</h2>
-                <p>Un recorrido por los momentos que dieron forma a la Fundación, del origen internacional del movimiento a la apertura del Centro de Salud.</p>
-            </div>
-            <div class="timeline-wrap reveal">
-                <div class="timeline">
-                    <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1922</div><div class="tl-title">Dos clubes, un mismo impulso</div><div class="tl-text">En Estados Unidos nacen por separado el Club Activo, en Aberdeen, Washington, y el Club 20-30, en Sacramento, California.</div></div>
-                    <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1960</div><div class="tl-title">Nace Activo 20-30 Internacional</div><div class="tl-text">Los dos clubes se unen y forman la organización internacional que hoy conocemos.</div></div>
-                    <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1962</div><div class="tl-title">Llega a República Dominicana</div><div class="tl-text">El salvadoreño René Fernández trae la organización al país. El 23 de agosto se juramenta la primera directiva, presidida por Moisés Paiewonsky.</div></div>
-                    <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1963</div><div class="tl-title">Primera gran prueba</div><div class="tl-text">Tras el paso del huracán Flora, jóvenes del club se convierten en motor de ayuda a comunidades aisladas del sur del país.</div></div>
-                    <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1978</div><div class="tl-title">Se funda el Centro de Salud</div><div class="tl-text">Activos y ex-activos del Club de Santo Domingo crean el Centro de Salud en María Auxiliadora.</div></div>
-                    <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1988</div><div class="tl-title">Nace el Club 40+</div><div class="tl-text">Quilvio y Diamela Cabral fundan un espacio para los ex-activos que superan los 40 años, extendiendo la comunidad por el país.</div></div>
-                    <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">Hoy</div><div class="tl-title">Un centro con más de 28 especialidades</div><div class="tl-text">La Fundación administra el Centro de Salud como su principal proyecto de labor social permanente.</div></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ESPECIALIDADES -->
-    <section id="especialidades">
-        <div class="wrap">
-            <div class="section-head reveal">
-                <p class="eyebrow">Servicios médicos</p>
-                <h2>Especialidades médicas</h2>
-                <p>Consultas, unidades y clínicas disponibles en el Centro de Salud, organizadas por área de atención.</p>
-            </div>
-            <div class="spec-groups reveal">
-                <div class="spec-group">
-                    <h3>Mujer, niñez y familia</h3><span class="count">05 servicios</span>
-                    <div class="chip-row"><span class="chip">Clínica de la Mujer</span><span class="chip">Unidad de Pediatría</span><span class="chip">Consulta de Nutrición</span><span class="chip">Atención a embarazadas adolescentes</span><span class="chip">Unidad de Oncología de Mama</span></div>
-                </div>
-                <div class="spec-group">
-                    <h3>Salud mental</h3><span class="count">04 servicios</span>
-                    <div class="chip-row"><span class="chip">Psicología</span><span class="chip">Psiquiatría</span><span class="chip">Terapia de pareja</span><span class="chip">Terapia del habla</span></div>
-                </div>
-                <div class="spec-group">
-                    <h3>Medicina especializada</h3><span class="count">18 servicios</span>
-                    <div class="chip-row"><span class="chip">Cardio-Neurología</span><span class="chip">Otorrinolaringología</span><span class="chip">Endocrinología</span><span class="chip">Gastroenterología</span><span class="chip">Neumología</span><span class="chip">Oftalmología</span><span class="chip">Fisiatría</span><span class="chip">Ortopedia</span><span class="chip">Urología</span><span class="chip">Nefrología</span><span class="chip">Hematología</span><span class="chip">Diabetología</span><span class="chip">Medicina Interna</span><span class="chip">Medicina General</span><span class="chip">Vascular</span><span class="chip">Infectología</span><span class="chip">Geriatría</span><span class="chip">Dermatología</span></div>
-                </div>
-                <div class="spec-group">
-                    <h3>Diagnóstico y apoyo</h3><span class="count">06 servicios</span>
-                    <div class="chip-row"><span class="chip">Odontología</span><span class="chip">Citopatología</span><span class="chip">Cirugía Ambulatoria</span><span class="chip">Imágenes Diagnósticas</span><span class="chip">Laboratorio Clínico</span><span class="chip">Atención al Parkinson</span></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PROGRAMAS -->
-    <section id="programas">
-        <div class="wrap">
-            <div class="section-head reveal">
-                <p class="eyebrow">Programas</p>
-                <h2>Programas comunitarios activos</h2>
-                <p>Más allá de la consulta médica, la Fundación sostiene programas dirigidos a poblaciones específicas de la comunidad.</p>
-            </div>
-            <div class="prog-grid reveal">
-                <div class="prog-card">
-                    <span class="prog-num">01</span>
-                    <h3>No cambies tu mochila por pañales</h3>
-                    <p>Acompañamiento médico y social a adolescentes embarazadas de la comunidad.</p>
-                    <div class="prog-image"><img src="https://images.unsplash.com/photo-1519824145371-296894a0daa9?w=400&h=200&fit=crop" alt="Programa adolescentes embarazadas" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 200%22%3E%3Crect width=%22400%22 height=%22200%22 fill=%22%23C1443C%22/%3E%3Ctext x=%22200%22 y=%22110%22 font-family=%22monospace%22 font-size=%2220%22 fill=%22white%22 text-anchor=%22middle%22%3EADOLESCENTES%3C/text%3E%3C/svg%3E'" /></div>
-                </div>
-                <div class="prog-card">
-                    <span class="prog-num">02</span>
-                    <h3>Programa de Autismo</h3>
-                    <p>Atención y seguimiento para niños dentro del espectro autista y sus familias.</p>
-                    <div class="prog-image"><img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&h=200&fit=crop" alt="Programa de Autismo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 200%22%3E%3Crect width=%22400%22 height=%22200%22 fill=%22%230E4038%22/%3E%3Ctext x=%22200%22 y=%22110%22 font-family=%22monospace%22 font-size=%2220%22 fill=%22%23D9A441%22 text-anchor=%22middle%22%3EAUTISMO%3C/text%3E%3C/svg%3E'" /></div>
-                </div>
-                <div class="prog-card">
-                    <span class="prog-num">03</span>
-                    <h3>Jornada Fiesta de la Salud</h3>
-                    <p>Jornada médica gratuita anual abierta a los sectores circundantes a la Fundación.</p>
-                    <div class="prog-image"><img src="https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=400&h=200&fit=crop" alt="Jornada Fiesta de la Salud" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 200%22%3E%3Crect width=%22400%22 height=%22200%22 fill=%22%23D9A441%22/%3E%3Ctext x=%22200%22 y=%22110%22 font-family=%22monospace%22 font-size=%2220%22 fill=%22%23082B25%22 text-anchor=%22middle%22%3EJORNADA MÉDICA%3C/text%3E%3C/svg%3E'" /></div>
-                </div>
-                <div class="prog-card">
-                    <span class="prog-num">04</span>
-                    <h3>Atención integral VIH</h3>
-                    <p>Servicio de seguimiento y atención médica integral para pacientes con VIH.</p>
-                    <div class="prog-image"><img src="https://images.unsplash.com/photo-1584516150909-c43483ee7932?w=400&h=200&fit=crop" alt="Atención integral VIH" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 200%22%3E%3Crect width=%22400%22 height=%22200%22 fill=%22%230E4038%22/%3E%3Ctext x=%22200%22 y=%22110%22 font-family=%22monospace%22 font-size=%2220%22 fill=%22%23F1EFE3%22 text-anchor=%22middle%22%3EVIH INTEGRAL%3C/text%3E%3C/svg%3E'" /></div>
-                </div>
-                <div class="prog-card">
-                    <span class="prog-num">05</span>
-                    <h3>Programa Mal de Parkinson</h3>
-                    <p>Consulta especializada y continuidad de tratamiento para pacientes de Parkinson.</p>
-                    <div class="prog-image"><img src="https://images.unsplash.com/photo-1581056771107-24ca5f033842?w=400&h=200&fit=crop" alt="Programa Parkinson" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 200%22%3E%3Crect width=%22400%22 height=%22200%22 fill=%22%23082B25%22/%3E%3Ctext x=%22200%22 y=%22110%22 font-family=%22monospace%22 font-size=%2220%22 fill=%22%23D9A441%22 text-anchor=%22middle%22%3EPARKINSON%3C/text%3E%3C/svg%3E'" /></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- LEGADO -->
-    <section id="legado">
-        <div class="wrap">
-            <div class="legado reveal">
-                <div class="legado-stats">
-                    <div class="legado-stat"><div class="n">24</div><div class="l">escuelas construidas en comunidades de todo el país</div></div>
-                    <div class="legado-stat"><div class="n">4</div><div class="l">bibliotecas públicas, incluida la de Moca con sala para 300 personas</div></div>
-                    <div class="legado-stat"><div class="n">16</div><div class="l">clubes activos hoy bajo la Asociación Nacional Activo 20-30 RD</div></div>
-                </div>
-                <div class="legado-copy">
-                    <h3>Una huella construida barrio por barrio</h3>
-                    <p>Desde el primer club en 1962, la red Activo 20-30 se extendió por todo el territorio nacional levantando escuelas, bibliotecas y programas de ayuda directa: campañas de vacunación, becas educativas, donación de medicinas y válvulas hidrocefálicas para niños de escasos recursos.</p>
-                    <p>Estas son algunas de las comunidades donde ese trabajo dejó una obra construida:</p>
-                    <div class="town-tags">
-                        <span class="town-tag">Santo Domingo</span><span class="town-tag">Haina</span><span class="town-tag">Villa Mella</span><span class="town-tag">Baní</span><span class="town-tag">Bonao</span><span class="town-tag">La Vega</span><span class="town-tag">San Juan de la Maguana</span><span class="town-tag">Mao</span><span class="town-tag">Yaguate</span><span class="town-tag">Moca</span><span class="town-tag">Esperanza</span><span class="town-tag">Cotuí</span>
+                
+                <div class="reveal">
+                    <div class="rounded-2xl overflow-hidden border border-paper-2 shadow-2xl mb-6 group">
+                        <img src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=800&h=500&fit=crop" alt="Centro de salud moderno" class="w-full h-[280px] md:h-[320px] object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 500%22%3E%3Crect width=%22800%22 height=%22500%22 fill=%22%230E4038%22/%3E%3Ccircle cx=%22400%22 cy=%22200%22 r=%2260%22 fill=%22%23D9A441%22/%3E%3Ctext x=%22400%22 y=%22340%22 font-family=%22monospace%22 font-size=%2228%22 fill=%22%23F1EFE3%22 text-anchor=%22middle%22%3ECENTRO DE SALUD%3C/text%3E%3C/svg%3E'" />
                     </div>
-                    <div class="legado-image">
-                        <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&h=300&fit=crop" alt="Legado de la Fundación Activo 20-30" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 300%22%3E%3Crect width=%22800%22 height=%22300%22 fill=%22%230E4038%22/%3E%3Ctext x=%22400%22 y=%22150%22 font-family=%22monospace%22 font-size=%2228%22 fill=%22%23D9A441%22 text-anchor=%22middle%22%3ELEGADO COMUNITARIO%3C/text%3E%3C/svg%3E'" />
+                    <div class="border-t border-teal-line">
+                        <div class="py-4 border-b border-teal-line flex items-baseline justify-between gap-3">
+                            <span class="font-serif text-2xl md:text-3xl text-teal font-semibold">1962</span>
+                            <span class="text-sm text-ink-soft text-right max-w-[20ch]">primer club Activo 20-30 juramentado en el país</span>
+                        </div>
+                        <div class="py-4 border-b border-teal-line flex items-baseline justify-between gap-3">
+                            <span class="font-serif text-2xl md:text-3xl text-teal font-semibold">16</span>
+                            <span class="text-sm text-ink-soft text-right max-w-[20ch]">clubes activos hoy en la Asociación Nacional</span>
+                        </div>
+                        <div class="py-4 border-b border-teal-line flex items-baseline justify-between gap-3">
+                            <span class="font-serif text-2xl md:text-3xl text-teal font-semibold">24</span>
+                            <span class="text-sm text-ink-soft text-right max-w-[20ch]">escuelas construidas en comunidades de escasos recursos</span>
+                        </div>
+                        <div class="py-4 flex items-baseline justify-between gap-3">
+                            <span class="font-serif text-2xl md:text-3xl text-teal font-semibold">28+</span>
+                            <span class="text-sm text-ink-soft text-right max-w-[20ch]">especialidades médicas bajo un mismo techo</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- CONTACTO -->
-    <section id="contacto">
-        <div class="wrap">
-            <div class="section-head reveal">
-                <p class="eyebrow">Contacto</p>
-                <h2>Visítanos o escríbenos</h2>
-                <p>Estamos ubicados en el corazón de María Auxiliadora, en uno de los sectores más poblados de la capital.</p>
-            </div>
-            <div class="contact-grid reveal">
-                <div class="contact-info">
-                    <div class="contact-row"><span class="contact-icon">D</span><div><h4>Dirección</h4><p>Calle Federico Velásquez 101, Santo Domingo 10306, República Dominicana</p></div></div>
-                    <div class="contact-row"><span class="contact-icon">W</span><div><h4>WhatsApp</h4><a href="https://wa.me/18096840082" target="_blank" rel="noopener">+1 (809) 684-0082</a></div></div>
-                    <div class="contact-row"><span class="contact-icon">@</span><div><h4>Redes sociales</h4><p><a href="https://www.facebook.com/fundacionactivo2030" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.instagram.com/fundacionactivo2030/" target="_blank" rel="noopener">Instagram</a></p></div></div>
-                    <div class="contact-row"><span class="contact-icon">$</span><div><h4>Plan social</h4><p>Atención a precios accesibles para las familias de los sectores circundantes a la Fundación.</p></div></div>
+        <!-- ORIGEN / NOSOTROS -->
+        <section id="historia" class="py-16 md:py-24">
+            <div class="max-w-[1180px] mx-auto px-4 md:px-8">
+                <div class="reveal bg-teal text-paper rounded-[20px] p-8 md:p-16 grid md:grid-cols-[0.9fr_1.1fr] gap-8 md:gap-12 items-center">
+                    <div>
+                        <blockquote class="font-serif italic font-medium text-2xl md:text-4xl leading-tight text-[#F6E9C9]">
+                            Señor… deme algo
+                        </blockquote>
+                        <cite class="block mt-4 font-mono text-xs tracking-widest uppercase text-[#B9CDC5] not-italic">
+                            Consigna de recaudación, 1963
+                        </cite>
+                        <div class="rounded-2xl overflow-hidden border border-white/20 mt-5 h-[180px] md:h-[200px] group">
+                            <img src="https://images.unsplash.com/photo-1584515933487-779824d29309?w=600&h=300&fit=crop" alt="Hogar del Niño construido en 1963" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 600 300%22%3E%3Crect width=%22600%22 height=%22300%22 fill=%22%23D9A441%22/%3E%3Ctext x=%22300%22 y=%22160%22 font-family=%22monospace%22 font-size=%2232%22 fill=%22%23082B25%22 text-anchor=%22middle%22%3EHOGAR DEL NIÑO%3C/text%3E%3C/svg%3E'" />
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <p class="text-[#D9E4DE] text-base md:text-lg">
+                            Con esa frase sencilla, un grupo de jóvenes salió a pedir fondos por las calles de Santo Domingo en 1963, apenas un año después de fundado el primer club en el país. Con lo recaudado construyeron el Hogar del Niño, en la Prolongación Independencia, donde llegaron a residir y educarse cerca de 200 niños.
+                        </p>
+                        <p class="text-[#D9E4DE] text-base md:text-lg">
+                            Ese mismo espíritu — resolver lo que hace falta, con lo que se tenga a mano — es el que sostiene hoy el Centro de Salud.
+                        </p>
+                    </div>
                 </div>
-                <div class="map-frame">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d472.97276262110927!2d-69.88964746425813!3d18.49352669366005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eaf885b50d74007%3A0x46808b350b370edf!2sCentro%20de%20Salud%20Fundaci%C3%B3n%20Activo%2020-30!5e0!3m2!1ses-419!2sdo!4v1642383412848!5m2!1ses-419!2sdo" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa del Centro de Salud Fundación Activo 20-30"></iframe>
+            </div>
+        </section>
+
+        <!-- TIMELINE -->
+        <section class="py-16 md:py-24">
+            <div class="max-w-[1180px] mx-auto px-4 md:px-8">
+                <div class="reveal max-w-[640px] mb-12">
+                    <p class="font-mono text-xs tracking-widest uppercase text-teal flex items-center gap-2.5">
+                        <span class="w-[22px] h-px bg-gold-deep inline-block"></span>
+                        Nuestra historia
+                    </p>
+                    <h2 class="mt-3 font-serif text-3xl md:text-4xl text-teal-deep font-semibold">
+                        De dos clubes de jóvenes a una red nacional de servicio
+                    </h2>
+                    <p class="mt-4 text-ink-soft text-base">
+                        Un recorrido por los momentos que dieron forma a la Fundación, del origen internacional del movimiento a la apertura del Centro de Salud.
+                    </p>
+                </div>
+                
+                <div class="reveal overflow-x-auto pb-7">
+                    <div class="flex gap-0 min-w-max">
+                        <div class="relative flex-none w-[280px] pr-7">
+                            <div class="absolute top-[38px] left-0 right-7 h-px bg-teal-line"></div>
+                            <div class="w-[11px] h-[11px] rounded-full bg-paper border-2 border-gold-deep mb-5 relative z-10"></div>
+                            <div class="font-mono text-2xl font-bold text-teal">1922</div>
+                            <div class="font-serif font-semibold text-lg mt-2 text-teal-deep">Dos clubes, un mismo impulso</div>
+                            <div class="text-sm text-ink-soft mt-2 pr-2">En Estados Unidos nacen por separado el Club Activo, en Aberdeen, Washington, y el Club 20-30, en Sacramento, California.</div>
+                        </div>
+                        <div class="relative flex-none w-[280px] pr-7">
+                            <div class="absolute top-[38px] left-0 right-7 h-px bg-teal-line"></div>
+                            <div class="w-[11px] h-[11px] rounded-full bg-paper border-2 border-gold-deep mb-5 relative z-10"></div>
+                            <div class="font-mono text-2xl font-bold text-teal">1960</div>
+                            <div class="font-serif font-semibold text-lg mt-2 text-teal-deep">Nace Activo 20-30 Internacional</div>
+                            <div class="text-sm text-ink-soft mt-2 pr-2">Los dos clubes se unen y forman la organización internacional que hoy conocemos.</div>
+                        </div>
+                        <div class="relative flex-none w-[280px] pr-7">
+                            <div class="absolute top-[38px] left-0 right-7 h-px bg-teal-line"></div>
+                            <div class="w-[11px] h-[11px] rounded-full bg-paper border-2 border-gold-deep mb-5 relative z-10"></div>
+                            <div class="font-mono text-2xl font-bold text-teal">1962</div>
+                            <div class="font-serif font-semibold text-lg mt-2 text-teal-deep">Llega a República Dominicana</div>
+                            <div class="text-sm text-ink-soft mt-2 pr-2">El salvadoreño René Fernández trae la organización al país. El 23 de agosto se juramenta la primera directiva, presidida por Moisés Paiewonsky.</div>
+                        </div>
+                        <div class="relative flex-none w-[280px] pr-7">
+                            <div class="absolute top-[38px] left-0 right-7 h-px bg-teal-line"></div>
+                            <div class="w-[11px] h-[11px] rounded-full bg-paper border-2 border-gold-deep mb-5 relative z-10"></div>
+                            <div class="font-mono text-2xl font-bold text-teal">1963</div>
+                            <div class="font-serif font-semibold text-lg mt-2 text-teal-deep">Primera gran prueba</div>
+                            <div class="text-sm text-ink-soft mt-2 pr-2">Tras el paso del huracán Flora, jóvenes del club se convierten en motor de ayuda a comunidades aisladas del sur del país.</div>
+                        </div>
+                        <div class="relative flex-none w-[280px] pr-7">
+                            <div class="absolute top-[38px] left-0 right-7 h-px bg-teal-line"></div>
+                            <div class="w-[11px] h-[11px] rounded-full bg-paper border-2 border-gold-deep mb-5 relative z-10"></div>
+                            <div class="font-mono text-2xl font-bold text-teal">1978</div>
+                            <div class="font-serif font-semibold text-lg mt-2 text-teal-deep">Se funda el Centro de Salud</div>
+                            <div class="text-sm text-ink-soft mt-2 pr-2">Activos y ex-activos del Club de Santo Domingo crean el Centro de Salud en María Auxiliadora.</div>
+                        </div>
+                        <div class="relative flex-none w-[280px] pr-7">
+                            <div class="absolute top-[38px] left-0 right-7 h-px bg-teal-line"></div>
+                            <div class="w-[11px] h-[11px] rounded-full bg-paper border-2 border-gold-deep mb-5 relative z-10"></div>
+                            <div class="font-mono text-2xl font-bold text-teal">1988</div>
+                            <div class="font-serif font-semibold text-lg mt-2 text-teal-deep">Nace el Club 40+</div>
+                            <div class="text-sm text-ink-soft mt-2 pr-2">Quilvio y Diamela Cabral fundan un espacio para los ex-activos que superan los 40 años, extendiendo la comunidad por el país.</div>
+                        </div>
+                        <div class="relative flex-none w-[280px]">
+                            <div class="w-[11px] h-[11px] rounded-full bg-paper border-2 border-gold-deep mb-5 relative z-10"></div>
+                            <div class="font-mono text-2xl font-bold text-teal">Hoy</div>
+                            <div class="font-serif font-semibold text-lg mt-2 text-teal-deep">Un centro con más de 28 especialidades</div>
+                            <div class="text-sm text-ink-soft mt-2 pr-2">La Fundación administra el Centro de Salud como su principal proyecto de labor social permanente.</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-</main>
+        </section>
 
-<footer>
-    <div class="wrap">
-        <div class="footer-top">
-            <div class="footer-brand">
-                <span class="brand-logo" style="background:var(--gold);">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23D9A441'/%3E%3Ctext x='50' y='58' font-family='monospace' font-size='16' fill='%23082B25' text-anchor='middle' font-weight='bold'%3EA20%3C/text%3E%3C/svg%3E" alt="Logo Fundación Activo 20-30" />
-                </span>
-                <div><strong>Fundación Activo 20-30</strong><p style="margin:2px 0 0;font-size:0.75rem;color:#8FA69C;font-family:'Space Mono',monospace;">Centro de Salud · Santo Domingo</p></div>
+        <!-- ESPECIALIDADES -->
+        <section id="especialidades" class="py-16 md:py-24">
+            <div class="max-w-[1180px] mx-auto px-4 md:px-8">
+                <div class="reveal max-w-[640px] mb-12">
+                    <p class="font-mono text-xs tracking-widest uppercase text-teal flex items-center gap-2.5">
+                        <span class="w-[22px] h-px bg-gold-deep inline-block"></span>
+                        Servicios médicos
+                    </p>
+                    <h2 class="mt-3 font-serif text-3xl md:text-4xl text-teal-deep font-semibold">
+                        Especialidades médicas
+                    </h2>
+                    <p class="mt-4 text-ink-soft text-base">
+                        Consultas, unidades y clínicas disponibles en el Centro de Salud, organizadas por área de atención.
+                    </p>
+                </div>
+                
+                <div class="reveal grid md:grid-cols-2 gap-9 md:gap-12">
+                    <div class="border-t-2 border-teal pt-4">
+                        <h3 class="font-serif text-lg text-teal-deep font-semibold">Mujer, niñez y familia</h3>
+                        <span class="font-mono text-xs text-gold-deep mt-1 block">05 servicios</span>
+                        <div class="flex flex-wrap gap-2.5 mt-4">
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Clínica de la Mujer</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Unidad de Pediatría</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Consulta de Nutrición</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Atención a embarazadas adolescentes</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Unidad de Oncología de Mama</span>
+                        </div>
+                    </div>
+                    <div class="border-t-2 border-teal pt-4">
+                        <h3 class="font-serif text-lg text-teal-deep font-semibold">Salud mental</h3>
+                        <span class="font-mono text-xs text-gold-deep mt-1 block">04 servicios</span>
+                        <div class="flex flex-wrap gap-2.5 mt-4">
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Psicología</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Psiquiatría</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Terapia de pareja</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Terapia del habla</span>
+                        </div>
+                    </div>
+                    <div class="border-t-2 border-teal pt-4">
+                        <h3 class="font-serif text-lg text-teal-deep font-semibold">Medicina especializada</h3>
+                        <span class="font-mono text-xs text-gold-deep mt-1 block">18 servicios</span>
+                        <div class="flex flex-wrap gap-2.5 mt-4">
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Cardio-Neurología</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Otorrinolaringología</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Endocrinología</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Gastroenterología</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Neumología</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Oftalmología</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Fisiatría</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Ortopedia</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Urología</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Nefrología</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Hematología</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Diabetología</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Medicina Interna</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Medicina General</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Vascular</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Infectología</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Geriatría</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Dermatología</span>
+                        </div>
+                    </div>
+                    <div class="border-t-2 border-teal pt-4">
+                        <h3 class="font-serif text-lg text-teal-deep font-semibold">Diagnóstico y apoyo</h3>
+                        <span class="font-mono text-xs text-gold-deep mt-1 block">06 servicios</span>
+                        <div class="flex flex-wrap gap-2.5 mt-4">
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Odontología</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Citopatología</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Cirugía Ambulatoria</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Imágenes Diagnósticas</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Laboratorio Clínico</span>
+                            <span class="bg-card border border-paper-2 rounded-full px-4 py-2 text-sm text-ink hover:border-gold-deep hover:bg-[#FFFDF6] hover:-translate-y-0.5 transition-all duration-200 cursor-default">Atención al Parkinson</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="footer-social">
-                <a href="https://www.facebook.com/fundacionactivo2030" target="_blank" rel="noopener" aria-label="Facebook">FB</a>
-                <a href="https://www.instagram.com/fundacionactivo2030/" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
-                <a href="https://wa.me/18096840082" target="_blank" rel="noopener" aria-label="WhatsApp">WA</a>
+        </section>
+
+        <!-- PROGRAMAS -->
+        <section id="programas" class="py-16 md:py-24">
+            <div class="max-w-[1180px] mx-auto px-4 md:px-8">
+                <div class="reveal max-w-[640px] mb-12">
+                    <p class="font-mono text-xs tracking-widest uppercase text-teal flex items-center gap-2.5">
+                        <span class="w-[22px] h-px bg-gold-deep inline-block"></span>
+                        Programas
+                    </p>
+                    <h2 class="mt-3 font-serif text-3xl md:text-4xl text-teal-deep font-semibold">
+                        Programas comunitarios activos
+                    </h2>
+                    <p class="mt-4 text-ink-soft text-base">
+                        Más allá de la consulta médica, la Fundación sostiene programas dirigidos a poblaciones específicas de la comunidad.
+                    </p>
+                </div>
+                
+                <div class="reveal grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-card rounded-2xl p-7 border border-paper-2 flex flex-col gap-3.5 hover:-translate-y-1 hover:shadow-2xl transition-all duration-300">
+                        <span class="font-mono text-xs text-gold-deep">01</span>
+                        <h3 class="font-serif text-lg text-teal-deep font-semibold">No cambies tu mochila por pañales</h3>
+                        <p class="text-sm text-ink-soft">Acompañamiento médico y social a adolescentes embarazadas de la comunidad.</p>
+                        <div class="rounded-2xl overflow-hidden h-[140px] mt-2">
+                            <img src="https://images.unsplash.com/photo-1519824145371-296894a0daa9?w=400&h=200&fit=crop" alt="Programa adolescentes embarazadas" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 200%22%3E%3Crect width=%22400%22 height=%22200%22 fill=%22%23C1443C%22/%3E%3Ctext x=%22200%22 y=%22110%22 font-family=%22monospace%22 font-size=%2220%22 fill=%22white%22 text-anchor=%22middle%22%3EADOLESCENTES%3C/text%3E%3C/svg%3E'" />
+                        </div>
+                    </div>
+                    <div class="bg-card rounded-2xl p-7 border border-paper-2 flex flex-col gap-3.5 hover:-translate-y-1 hover:shadow-2xl transition-all duration-300">
+                        <span class="font-mono text-xs text-gold-deep">02</span>
+                        <h3 class="font-serif text-lg text-teal-deep font-semibold">Programa de Autismo</h3>
+                        <p class="text-sm text-ink-soft">Atención y seguimiento para niños dentro del espectro autista y sus familias.</p>
+                        <div class="rounded-2xl overflow-hidden h-[140px] mt-2">
+                            <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&h=200&fit=crop" alt="Programa de Autismo" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 200%22%3E%3Crect width=%22400%22 height=%22200%22 fill=%22%230E4038%22/%3E%3Ctext x=%22200%22 y=%22110%22 font-family=%22monospace%22 font-size=%2220%22 fill=%22%23D9A441%22 text-anchor=%22middle%22%3EAUTISMO%3C/text%3E%3C/svg%3E'" />
+                        </div>
+                    </div>
+                    <div class="bg-card rounded-2xl p-7 border border-paper-2 flex flex-col gap-3.5 hover:-translate-y-1 hover:shadow-2xl transition-all duration-300">
+                        <span class="font-mono text-xs text-gold-deep">03</span>
+                        <h3 class="font-serif text-lg text-teal-deep font-semibold">Jornada Fiesta de la Salud</h3>
+                        <p class="text-sm text-ink-soft">Jornada médica gratuita anual abierta a los sectores circundantes a la Fundación.</p>
+                        <div class="rounded-2xl overflow-hidden h-[140px] mt-2">
+                            <img src="https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=400&h=200&fit=crop" alt="Jornada Fiesta de la Salud" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 200%22%3E%3Crect width=%22400%22 height=%22200%22 fill=%22%23D9A441%22/%3E%3Ctext x=%22200%22 y=%22110%22 font-family=%22monospace%22 font-size=%2220%22 fill=%22%23082B25%22 text-anchor=%22middle%22%3EJORNADA MÉDICA%3C/text%3E%3C/svg%3E'" />
+                        </div>
+                    </div>
+                    <div class="bg-card rounded-2xl p-7 border border-paper-2 flex flex-col gap-3.5 hover:-translate-y-1 hover:shadow-2xl transition-all duration-300">
+                        <span class="font-mono text-xs text-gold-deep">04</span>
+                        <h3 class="font-serif text-lg text-teal-deep font-semibold">Atención integral VIH</h3>
+                        <p class="text-sm text-ink-soft">Servicio de seguimiento y atención médica integral para pacientes con VIH.</p>
+                        <div class="rounded-2xl overflow-hidden h-[140px] mt-2">
+                            <img src="https://images.unsplash.com/photo-1584516150909-c43483ee7932?w=400&h=200&fit=crop" alt="Atención integral VIH" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 200%22%3E%3Crect width=%22400%22 height=%22200%22 fill=%22%230E4038%22/%3E%3Ctext x=%22200%22 y=%22110%22 font-family=%22monospace%22 font-size=%2220%22 fill=%22%23F1EFE3%22 text-anchor=%22middle%22%3EVIH INTEGRAL%3C/text%3E%3C/svg%3E'" />
+                        </div>
+                    </div>
+                    <div class="bg-card rounded-2xl p-7 border border-paper-2 flex flex-col gap-3.5 hover:-translate-y-1 hover:shadow-2xl transition-all duration-300">
+                        <span class="font-mono text-xs text-gold-deep">05</span>
+                        <h3 class="font-serif text-lg text-teal-deep font-semibold">Programa Mal de Parkinson</h3>
+                        <p class="text-sm text-ink-soft">Consulta especializada y continuidad de tratamiento para pacientes de Parkinson.</p>
+                        <div class="rounded-2xl overflow-hidden h-[140px] mt-2">
+                            <img src="https://images.unsplash.com/photo-1581056771107-24ca5f033842?w=400&h=200&fit=crop" alt="Programa Parkinson" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 200%22%3E%3Crect width=%22400%22 height=%22200%22 fill=%22%23082B25%22/%3E%3Ctext x=%22200%22 y=%22110%22 font-family=%22monospace%22 font-size=%2220%22 fill=%22%23D9A441%22 text-anchor=%22middle%22%3EPARKINSON%3C/text%3E%3C/svg%3E'" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LEGADO -->
+        <section id="legado" class="py-16 md:py-24">
+            <div class="max-w-[1180px] mx-auto px-4 md:px-8">
+                <div class="reveal bg-paper-2 rounded-[20px] p-8 md:p-14 grid md:grid-cols-[0.7fr_1.3fr] gap-10 md:gap-14">
+                    <div class="flex flex-col gap-7">
+                        <div>
+                            <div class="font-serif text-4xl md:text-5xl text-teal font-bold">24</div>
+                            <div class="text-sm text-ink-soft mt-1">escuelas construidas en comunidades de todo el país</div>
+                        </div>
+                        <div>
+                            <div class="font-serif text-4xl md:text-5xl text-teal font-bold">4</div>
+                            <div class="text-sm text-ink-soft mt-1">bibliotecas públicas, incluida la de Moca con sala para 300 personas</div>
+                        </div>
+                        <div>
+                            <div class="font-serif text-4xl md:text-5xl text-teal font-bold">16</div>
+                            <div class="text-sm text-ink-soft mt-1">clubes activos hoy bajo la Asociación Nacional Activo 20-30 RD</div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-serif text-xl md:text-2xl text-teal-deep font-semibold mb-3">Una huella construida barrio por barrio</h3>
+                        <p class="text-ink-soft text-base mb-3.5">Desde el primer club en 1962, la red Activo 20-30 se extendió por todo el territorio nacional levantando escuelas, bibliotecas y programas de ayuda directa: campañas de vacunación, becas educativas, donación de medicinas y válvulas hidrocefálicas para niños de escasos recursos.</p>
+                        <p class="text-ink-soft text-base mb-4">Estas son algunas de las comunidades donde ese trabajo dejó una obra construida:</p>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="font-mono text-xs border border-ink-soft rounded-md px-2.5 py-1.5 text-ink-soft hover:bg-teal hover:text-paper hover:border-teal transition-all duration-200">Santo Domingo</span>
+                            <span class="font-mono text-xs border border-ink-soft rounded-md px-2.5 py-1.5 text-ink-soft hover:bg-teal hover:text-paper hover:border-teal transition-all duration-200">Haina</span>
+                            <span class="font-mono text-xs border border-ink-soft rounded-md px-2.5 py-1.5 text-ink-soft hover:bg-teal hover:text-paper hover:border-teal transition-all duration-200">Villa Mella</span>
+                            <span class="font-mono text-xs border border-ink-soft rounded-md px-2.5 py-1.5 text-ink-soft hover:bg-teal hover:text-paper hover:border-teal transition-all duration-200">Baní</span>
+                            <span class="font-mono text-xs border border-ink-soft rounded-md px-2.5 py-1.5 text-ink-soft hover:bg-teal hover:text-paper hover:border-teal transition-all duration-200">Bonao</span>
+                            <span class="font-mono text-xs border border-ink-soft rounded-md px-2.5 py-1.5 text-ink-soft hover:bg-teal hover:text-paper hover:border-teal transition-all duration-200">La Vega</span>
+                            <span class="font-mono text-xs border border-ink-soft rounded-md px-2.5 py-1.5 text-ink-soft hover:bg-teal hover:text-paper hover:border-teal transition-all duration-200">San Juan de la Maguana</span>
+                            <span class="font-mono text-xs border border-ink-soft rounded-md px-2.5 py-1.5 text-ink-soft hover:bg-teal hover:text-paper hover:border-teal transition-all duration-200">Mao</span>
+                            <span class="font-mono text-xs border border-ink-soft rounded-md px-2.5 py-1.5 text-ink-soft hover:bg-teal hover:text-paper hover:border-teal transition-all duration-200">Yaguate</span>
+                            <span class="font-mono text-xs border border-ink-soft rounded-md px-2.5 py-1.5 text-ink-soft hover:bg-teal hover:text-paper hover:border-teal transition-all duration-200">Moca</span>
+                            <span class="font-mono text-xs border border-ink-soft rounded-md px-2.5 py-1.5 text-ink-soft hover:bg-teal hover:text-paper hover:border-teal transition-all duration-200">Esperanza</span>
+                            <span class="font-mono text-xs border border-ink-soft rounded-md px-2.5 py-1.5 text-ink-soft hover:bg-teal hover:text-paper hover:border-teal transition-all duration-200">Cotuí</span>
+                        </div>
+                        <div class="rounded-2xl overflow-hidden mt-5 h-[180px] md:h-[200px]">
+                            <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&h=300&fit=crop" alt="Legado de la Fundación Activo 20-30" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 300%22%3E%3Crect width=%22800%22 height=%22300%22 fill=%22%230E4038%22/%3E%3Ctext x=%22400%22 y=%22150%22 font-family=%22monospace%22 font-size=%2228%22 fill=%22%23D9A441%22 text-anchor=%22middle%22%3ELEGADO COMUNITARIO%3C/text%3E%3C/svg%3E'" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACTO -->
+        <section id="contacto" class="py-16 md:py-24">
+            <div class="max-w-[1180px] mx-auto px-4 md:px-8">
+                <div class="reveal max-w-[640px] mb-12">
+                    <p class="font-mono text-xs tracking-widest uppercase text-teal flex items-center gap-2.5">
+                        <span class="w-[22px] h-px bg-gold-deep inline-block"></span>
+                        Contacto
+                    </p>
+                    <h2 class="mt-3 font-serif text-3xl md:text-4xl text-teal-deep font-semibold">
+                        Visítanos o escríbenos
+                    </h2>
+                    <p class="mt-4 text-ink-soft text-base">
+                        Estamos ubicados en el corazón de María Auxiliadora, en uno de los sectores más poblados de la capital.
+                    </p>
+                </div>
+                
+                <div class="reveal grid md:grid-cols-2 gap-8 md:gap-12 items-stretch">
+                    <div class="flex flex-col gap-6">
+                        <div class="flex gap-4 items-start">
+                            <span class="w-[42px] h-[42px] rounded-full bg-teal text-paper flex items-center justify-center shrink-0 font-mono text-sm">D</span>
+                            <div>
+                                <h4 class="font-serif text-teal-deep font-semibold mb-1">Dirección</h4>
+                                <p class="text-sm text-ink-soft">Calle Federico Velásquez 101, Santo Domingo 10306, República Dominicana</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 items-start">
+                            <span class="w-[42px] h-[42px] rounded-full bg-teal text-paper flex items-center justify-center shrink-0 font-mono text-sm">W</span>
+                            <div>
+                                <h4 class="font-serif text-teal-deep font-semibold mb-1">WhatsApp</h4>
+                                <a href="https://wa.me/18096840082" target="_blank" rel="noopener" class="text-sm text-ink-soft hover:text-teal transition-colors">+1 (809) 684-0082</a>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 items-start">
+                            <span class="w-[42px] h-[42px] rounded-full bg-teal text-paper flex items-center justify-center shrink-0 font-mono text-sm">@</span>
+                            <div>
+                                <h4 class="font-serif text-teal-deep font-semibold mb-1">Redes sociales</h4>
+                                <p class="text-sm text-ink-soft">
+                                    <a href="https://www.facebook.com/fundacionactivo2030" target="_blank" rel="noopener" class="hover:text-teal transition-colors">Facebook</a> · 
+                                    <a href="https://www.instagram.com/fundacionactivo2030/" target="_blank" rel="noopener" class="hover:text-teal transition-colors">Instagram</a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 items-start">
+                            <span class="w-[42px] h-[42px] rounded-full bg-teal text-paper flex items-center justify-center shrink-0 font-mono text-sm">$</span>
+                            <div>
+                                <h4 class="font-serif text-teal-deep font-semibold mb-1">Plan social</h4>
+                                <p class="text-sm text-ink-soft">Atención a precios accesibles para las familias de los sectores circundantes a la Fundación.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rounded-2xl overflow-hidden border border-paper-2 min-h-[340px]">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d472.97276262110927!2d-69.88964746425813!3d18.49352669366005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eaf885b50d74007%3A0x46808b350b370edf!2sCentro%20de%20Salud%20Fundaci%C3%B3n%20Activo%2020-30!5e0!3m2!1ses-419!2sdo!4v1642383412848!5m2!1ses-419!2sdo" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa del Centro de Salud Fundación Activo 20-30" class="w-full h-full min-h-[340px] border-0"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-teal-deep text-[#CFDBD5] py-14 md:py-16">
+        <div class="max-w-[1180px] mx-auto px-4 md:px-8">
+            <div class="flex justify-between items-start gap-8 flex-wrap pb-8 border-b border-white/10">
+                <div class="flex items-center gap-4">
+                    <span class="w-[60px] h-[60px] rounded-full bg-gold flex items-center justify-center overflow-hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-full h-full">
+                            <circle cx="50" cy="50" r="48" fill="#D9A441" />
+                            <text x="50" y="58" font-family="monospace" font-size="16" fill="#082B25" text-anchor="middle" font-weight="bold">A20-30</text>
+                        </svg>
+                    </span>
+                    <div>
+                        <strong class="font-serif text-paper text-xl md:text-2xl font-black">Fundación Activo 20-30</strong>
+                        <p class="text-sm text-gold font-mono font-bold mt-0.5">Centro de Salud · Santo Domingo</p>
+                    </div>
+                </div>
+                <div class="flex gap-3">
+                    <a href="https://www.facebook.com/fundacionactivo2030" target="_blank" rel="noopener" aria-label="Facebook" class="w-9 h-9 rounded-full border border-white/25 flex items-center justify-center text-paper font-mono text-xs hover:bg-white/10 transition-colors">FB</a>
+                    <a href="https://www.instagram.com/fundacionactivo2030/" target="_blank" rel="noopener" aria-label="Instagram" class="w-9 h-9 rounded-full border border-white/25 flex items-center justify-center text-paper font-mono text-xs hover:bg-white/10 transition-colors">IG</a>
+                    <a href="https://wa.me/18096840082" target="_blank" rel="noopener" aria-label="WhatsApp" class="w-9 h-9 rounded-full border border-white/25 flex items-center justify-center text-paper font-mono text-xs hover:bg-white/10 transition-colors">WA</a>
+                </div>
+            </div>
+            <div class="pt-6 flex justify-between flex-wrap gap-2.5 text-xs text-[#8FA69C]">
+                <span>© 2022–2026 Fundación Activo 20-30. Todos los derechos reservados.</span>
+                <span>Calle Federico Velásquez 101, Santo Domingo</span>
             </div>
         </div>
-        <div class="footer-bottom">
-            <span>© 2022–2026 Fundación Activo 20-30. Todos los derechos reservados.</span>
-            <span>Calle Federico Velásquez 101, Santo Domingo</span>
-        </div>
-    </div>
-</footer>
+    </footer>
 
-<a href="https://wa.me/18096840082" target="_blank" rel="noopener" class="wa-float" aria-label="Escribir por WhatsApp">WA</a>
+    <!-- WHATSAPP FLOAT -->
+    <a href="https://wa.me/18096840082" target="_blank" rel="noopener" class="fixed bottom-6 right-6 z-[60] bg-coral text-white w-14 h-14 rounded-full flex items-center justify-center font-mono text-xs shadow-2xl hover:scale-110 transition-transform duration-200" aria-label="Escribir por WhatsApp">WA</a>
 
-<script>
-    const revealEls = document.querySelectorAll('.reveal');
-    if ('IntersectionObserver' in window) {
-        const io = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('in');
-                    io.unobserve(entry.target);
-                }
+    <script>
+        // Reveal on scroll
+        const revealEls = document.querySelectorAll('.reveal');
+        if ('IntersectionObserver' in window) {
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in');
+                        io.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12 });
+            revealEls.forEach(el => io.observe(el));
+        } else {
+            revealEls.forEach(el => el.classList.add('in'));
+        }
+
+        // Mobile menu toggle
+        const toggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (toggle && mobileMenu) {
+            toggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
             });
-        }, { threshold: 0.12 });
-        revealEls.forEach(el => io.observe(el));
-    } else {
-        revealEls.forEach(el => el.classList.add('in'));
-    }
-
-    const toggle = document.getElementById('menu-toggle');
-    const navLinks = document.getElementById('nav-links');
-    if (toggle) {
-        toggle.addEventListener('click', () => {
-            navLinks.classList.toggle('open');
-        });
-    }
-</script>
+            
+            // Close menu when clicking a link
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        }
+    </script>
 </body>
 </html>
